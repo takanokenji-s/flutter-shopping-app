@@ -1,0 +1,21 @@
+Setup for Dart
+
+{
+  "editor.hover.delay": 500,
+  "editor.quickSuggestions": {
+    "other": false,
+    "comments": false,
+    "strings": false
+  }
+}
+
+or
+
+{
+  "editor.hover.enabled": false,
+  "editor.quickSuggestions": {
+    "other": false,
+    "comments": false,
+    "strings": false
+  }
+}
