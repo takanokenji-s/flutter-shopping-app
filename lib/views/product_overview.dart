@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/cart.dart';
+import './cart_view.dart';
 import '../widgets/products_grid.dart';
 import '../widgets/badge.dart';
 
@@ -30,7 +31,12 @@ class _ProductOverviewState extends State<ProductOverview> {
               value: cart.itemsCount.toString(),
               child: child!,
             ),
-            child: const Icon(Icons.shopping_cart),
+            child: IconButton(
+              icon: const Icon(Icons.shopping_cart),
+              onPressed: () {
+                Navigator.of(context).pushNamed(CartView.routeName);
+              },
+            ),
           ),
           PopupMenuButton(
             onSelected: (FilteringOptions selected) {
