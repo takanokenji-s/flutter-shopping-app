@@ -15,7 +15,7 @@ class ProductItem extends StatelessWidget {
      * use this way if you need everything to be rebuild
      * reminder: listen false forces product to not listen changes if occurs
      * */
-    final product = Provider.of<Product>(context, listen: false);
+    final product = Provider.of<Product>(context); // , listen: false
     final cart = Provider.of<Cart>(context, listen: false);
 
     /**
