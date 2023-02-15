@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import './product.dart';
 
 class Products with ChangeNotifier {
-  List<Product> _items = [
+  final List<Product> _items = [
     Product(
       id: 'p1',
       title: 'Red Shirt',
@@ -44,11 +44,9 @@ class Products with ChangeNotifier {
     return _items.where((element) => element.isFavorite).toList();
   }
 
-  /**
-   * this return forces a return of a copy of items
-   * if the return of this method is _items, then you got any return
-   * whenever _items change internally
-   */
+  // this return forces a return of a copy of items
+  // if the return of this method is _items, then you got any return
+  // whenever _items change internally
   List<Product> get items {
     // if (_filterFavorites) {
     //   return _items.where((element) => element.isFavorite).toList();
@@ -70,10 +68,8 @@ class Products with ChangeNotifier {
   //   notifyListeners();
   // }
 
-  /**
-   * this forces _items to be added inside this method
-   * as it forces to add here, notifyListeners can be triggered
-   */
+  // this forces _items to be added inside this method
+  // as it forces to add here, notifyListeners can be triggered
   void addProduct(product) {
     // TODO: make a addProduct after all logic is done
     // _items.add(product);
