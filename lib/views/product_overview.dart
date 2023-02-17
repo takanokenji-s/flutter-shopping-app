@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../providers/cart.dart';
 import './cart_view.dart';
+import '../widgets/layouts/app_drawer.dart';
 import '../widgets/products_grid.dart';
 import '../widgets/badge.dart';
 
@@ -63,6 +64,7 @@ class _ProductOverviewState extends State<ProductOverview> {
         ],
         title: const Text('Shopping App'),
       ),
+      drawer: const AppDrawer(),
       body: ProductsGrid(_filterFavorites),
     );
   }
