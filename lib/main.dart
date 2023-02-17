@@ -4,8 +4,10 @@ import 'package:provider/provider.dart';
 import './views/cart_view.dart';
 import './views/product_overview.dart';
 import './views/product_detail.dart';
+import './views/orders_overview.dart';
 import './providers/products.dart';
 import './providers/cart.dart';
+import './providers/orders.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,6 +26,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (ctx) => Cart(),
         ),
+        ChangeNotifierProvider.value(
+          value: Orders(),
+        ),
       ],
       child: MaterialApp(
           title: 'Shopping App to Learn Flutter',
@@ -36,6 +41,7 @@ class MyApp extends StatelessWidget {
           routes: {
             ProductDetail.routeName: (context) => const ProductDetail(),
             CartView.routeName: (context) => const CartView(),
+            OrdersOverview.routeName: (ctx) => const OrdersOverview(),
           }),
     );
   }
