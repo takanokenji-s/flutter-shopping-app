@@ -35,7 +35,7 @@ class CartView extends StatelessWidget {
                 Chip(
                   backgroundColor: Colors.purple,
                   label: Text(
-                    '\$${cart.totalAmount}',
+                    '\$${cart.totalAmount.toStringAsFixed(2)}',
                     style: const TextStyle(color: Colors.white),
                   ),
                 ),
