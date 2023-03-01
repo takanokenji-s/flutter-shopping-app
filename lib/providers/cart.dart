@@ -48,12 +48,13 @@ class Cart with ChangeNotifier {
               quantity: existingCartItem.quantity + 1));
     } else {
       _items.putIfAbsent(
-          id,
-          () => CartItem(
-              id: DateTime.now().toString(),
-              title: title,
-              price: price,
-              quantity: 1));
+        id,
+        () => CartItem(
+            id: DateTime.now().toString(),
+            title: title,
+            price: price,
+            quantity: 1),
+      );
       notifyListeners();
     }
   }
