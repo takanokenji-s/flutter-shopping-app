@@ -82,7 +82,7 @@ This project has no back-end project, but uses Firebase to manage app features. 
       <img src=".github/assets/icons/icons8-color-widgets-64.png" alt="Firebase" width="60%" height="60%"/>
     </td>
     <td>
-      There are State Management resources set for data provide and maagement.
+      There are State Management resources set for data provide and management.
     </td>
   </tr>
   <tr>
