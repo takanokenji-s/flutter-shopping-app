@@ -26,7 +26,7 @@
 
 # Shopping App
 
-<table>
+<table border="0">
   <tr>
     <td align="center">
       <img src=".github/assets/app_sample/main_screen_1.png" alt="App Main Screen"/>
@@ -52,7 +52,7 @@ Then run the project with or without debugging. <br />
 
 This project has no back-end project, but uses Firebase to manage app features. Make sure to have internet connection to access.
 
-<table>
+<table border="0">
   <tr>
     <td>
       <img src=".github/assets/icons/icons8-dart-48.png" alt="Dart Lang" />
@@ -82,7 +82,7 @@ This project has no back-end project, but uses Firebase to manage app features. 
       <img src=".github/assets/icons/icons8-color-widgets-64.png" alt="Firebase" width="60%" height="60%"/>
     </td>
     <td>
-      There are State Management resources set for data provide and maagement.
+      There are State Management resources set for data provide and management.
     </td>
   </tr>
   <tr>
@@ -110,7 +110,7 @@ This project has no back-end project, but uses Firebase to manage app features. 
 
 <details>
   <summary style="font-size: 18px;">Products (Customer View)</summary>
-  <table>
+  <table border="0">
     <tr>
       <td width="25%">
         <img src=".github/assets/app_sample/main_screen_1.png" alt="App Main Screen" height="230" width="150"/>
@@ -127,7 +127,7 @@ This project has no back-end project, but uses Firebase to manage app features. 
   <p>
     Management should not be a resource available to customers. As the project has no back-end or Dashboards, resources like this must be managed inside the Application.
   </p>
-  <table>
+  <table border="0">
     <tr>
       <td>
         This is the product management Screen. It is possible to create, edit and delete products. This resource also makes http requests and uses state management.
@@ -141,7 +141,7 @@ This project has no back-end project, but uses Firebase to manage app features. 
 
 <details>
   <summary style="font-size: 18px;">Orders </summary>
-  <table>
+  <table border="0">
     <tr>
       <td width="25%">
         <img src=".github/assets/app_sample/product_management_screen_1.png" alt="App Main Screen" height="230" width="150"/>
