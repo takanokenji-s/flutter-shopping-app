@@ -1,5 +1,3 @@
-<!-- TODO: Finish this readme before push to github -->
-
 <!-- Project Shields -->
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
@@ -144,10 +142,10 @@ This project has no back-end project, but uses Firebase to manage app features. 
   <table border="0">
     <tr>
       <td width="25%">
-        <img src=".github/assets/app_sample/product_management_screen_1.png" alt="App Main Screen" height="230" width="150"/>
+        <img src=".github/assets/app_sample/orders_screen_1.png" alt="App Main Screen" height="230" width="150"/>
       </td>
       <td>
-        Orders list can be check in this resource. There are no possibilities to edit or create. Only list and display more details.
+        Orders list available in this resource. There are no possibilities to edit or create. Only list and display more details. These orders are stored in Firebase and it's state is managed with Providers.
       </td>
     </tr>
   </table>
