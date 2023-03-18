@@ -6,7 +6,7 @@ import '../providers/products.dart';
 import './cart_view.dart';
 import '../widgets/layouts/app_drawer.dart';
 import '../widgets/products_grid.dart';
-import '../widgets/badge.dart';
+import '../widgets/badge.dart' as badge;
 
 enum FilteringOptions {
   favorites,
@@ -47,7 +47,7 @@ class _ProductOverviewState extends State<ProductOverview> {
       appBar: AppBar(
         actions: [
           Consumer<Cart>(
-            builder: (_, cart, child) => Badge(
+            builder: (_, cart, child) => badge.Badge(
               value: cart.itemsCount.toString(),
               child: child!,
             ),
