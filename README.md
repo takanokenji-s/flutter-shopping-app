@@ -52,31 +52,31 @@ This project has no back-end project, but uses Firebase to manage app features. 
 
 <table border="0">
   <tr>
-    <td>
-      <img src=".github/assets/icons/icons8-dart-48.png" alt="Dart Lang" />
+    <td style="text-align: center" width="55vh">
+      <img src=".github/assets/icons/icons8-dart-48.png" alt="Dart Lang"  width="100%" />
     </td>
     <td>
       Dart is the main language in this project since there are no back-end server to provide data.
     </td>
   </tr>
   <tr>
-    <td>
-      <img src=".github/assets/icons/icons8-flutter-48.png" alt="Flutter" />
+    <td style="text-align: center" width="55vh">
+      <img src=".github/assets/icons/icons8-flutter-48.png" alt="Flutter"  width="100%" />
     </td>
     <td>
       This project counts on Flutter since Flutter is the most popular Dart Framework.
     </td>
   </tr>
   <tr>
-    <td>
-      <img src=".github/assets/icons/icons8-google-firebase-console-48.png" alt="Firebase" />
+    <td style="text-align: center" width="55vh">
+      <img src=".github/assets/icons/icons8-google-firebase-console-48.png" alt="Firebase" width="100%" />
     </td>
     <td>
       As a sample project, Firebase is set to provide and controlls data.
     </td>
   </tr>
   <tr>
-    <td>
+    <td style="text-align: center" width="55vh">
       <img src=".github/assets/icons/icons8-color-widgets-64.png" alt="Firebase" width="60%" height="60%"/>
     </td>
     <td>
@@ -84,7 +84,7 @@ This project has no back-end project, but uses Firebase to manage app features. 
     </td>
   </tr>
   <tr>
-    <td>
+    <td style="text-align: center" width="55vh">
       <img src=".github/assets/icons/icons8-http-64.png" alt="HTTPs" width="40" height="40"/>
     </td>
     <td>
@@ -110,8 +110,8 @@ This project has no back-end project, but uses Firebase to manage app features. 
   <summary style="font-size: 18px;">Products (Customer View)</summary>
   <table border="0">
     <tr>
-      <td width="25%">
-        <img src=".github/assets/app_sample/main_screen_1.png" alt="App Main Screen" height="230" width="150"/>
+      <td width="200vh">
+        <img src=".github/assets/app_sample/main_screen_1.png" alt="App Main Screen" height="230vh" width="200vh" />
       </td>
       <td>
         This is the main screen. It uses HTTP requests to load data from the server (Firebase) and state management to controlls those loaded data.
@@ -130,8 +130,8 @@ This project has no back-end project, but uses Firebase to manage app features. 
       <td>
         This is the product management Screen. It is possible to create, edit and delete products. This resource also makes http requests and uses state management.
       </td>
-      <td width="25%">
-        <img src=".github/assets/app_sample/product_management_screen_1.png" alt="App Main Screen" height="230" width="150"/>
+      <td width="200vh">
+        <img src=".github/assets/app_sample/product_management_screen_1.png" alt="App Main Screen" height="230vh" width="200vh" />
       </td>
     </tr>
   </table>
@@ -141,8 +141,8 @@ This project has no back-end project, but uses Firebase to manage app features. 
   <summary style="font-size: 18px;">Orders </summary>
   <table border="0">
     <tr>
-      <td width="25%">
-        <img src=".github/assets/app_sample/orders_screen_1.png" alt="App Main Screen" height="230vh" width="150vh"/>
+      <td width="200vh">
+        <img src=".github/assets/app_sample/orders_screen_1.png" alt="App Main Screen" height="230vh" width="200vh" />
       </td>
       <td>
         Orders list available in this resource. There are no possibilities to edit or create. Only list and display more details. These orders are stored in Firebase and it's state is managed with Providers.
