@@ -1,5 +1,6 @@
+import 'dart:convert';
 import 'package:flutter/foundation.dart';
-
+import 'package:http/http.dart' as http;
 import './cart.dart';
 
 class OrderItem {
@@ -17,20 +18,68 @@ class OrderItem {
 }
 
 class Orders with ChangeNotifier {
-  final List<OrderItem> _orders = [];
+  List<OrderItem> _orders = [];
 
   List<OrderItem> get orders {
     return [..._orders];
   }
 
-  void addOrder(List<CartItem> cartProducts, double total) {
+  Future<void> fetchAndSetOrders() async {
+    const url =
+        'https://learn-flutter-aa8f6-default-rtdb.firebaseio.com/orders.json';
+    final response = await http.get(Uri.parse(url));
+    final List<OrderItem> orders = [];
+    final encodedOrders = json.decode(response.body) as Map<String, dynamic>;
+
+    if (encodedOrders.isEmpty) return;
+
+    encodedOrders.forEach((key, value) {
+      orders.add(OrderItem(
+        id: key,
+        amount: value['amount'],
+        products: (value['products'] as List<dynamic>)
+            .map(
+              (product) => CartItem(
+                id: product['id'],
+                price: product['price'],
+                quantity: product['quantity'],
+                title: product['title'],
+              ),
+            )
+            .toList(),
+        dateTime: DateTime.parse(value['dateTime']),
+      ));
+    });
+    _orders = orders.reversed.toList();
+    notifyListeners();
+  }
+
+  Future<void> addOrder(List<CartItem> cartProducts, double total) async {
+    const url =
+        'https://learn-flutter-aa8f6-default-rtdb.firebaseio.com/orders.json';
+    final timestamp = DateTime.now();
+    final response = await http.post(Uri.parse(url),
+        body: json.encode({
+          'amount': total,
+          'dateTime': timestamp.toIso8601String(),
+          'products': cartProducts
+              .map((prod) => {
+                    'id': prod.id,
+                    'title': prod.title,
+                    'quantity': prod.quantity,
+                    'price': prod.price
+                  })
+              .toList(),
+        }));
     _orders.insert(
-        0,
-        OrderItem(
-            id: DateTime.now().toString(),
-            amount: total,
-            dateTime: DateTime.now(),
-            products: cartProducts));
+      0,
+      OrderItem(
+        id: json.decode(response.body)['name'],
+        amount: total,
+        dateTime: timestamp,
+        products: cartProducts,
+      ),
+    );
 
     notifyListeners();
   }
