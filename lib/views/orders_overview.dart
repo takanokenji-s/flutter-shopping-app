@@ -5,10 +5,27 @@ import '../providers/orders.dart' show Orders;
 import '../widgets/layouts/app_drawer.dart';
 import '../widgets/order_item.dart';
 
-class OrdersOverview extends StatelessWidget {
+class OrdersOverview extends StatefulWidget {
   static const routeName = '/orders';
 
   const OrdersOverview({super.key});
+
+  @override
+  State<OrdersOverview> createState() => _OrdersOverviewState();
+}
+
+class _OrdersOverviewState extends State<OrdersOverview> {
+  late Future _loadedOrders;
+
+  Future _loadOrder() {
+    return Provider.of<Orders>(context, listen: false).fetchAndSetOrders();
+  }
+
+  @override
+  void initState() {
+    _loadedOrders = _loadOrder();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +35,7 @@ class OrdersOverview extends StatelessWidget {
       ),
       drawer: const AppDrawer(),
       body: FutureBuilder(
-        future: Provider.of<Orders>(context, listen: false).fetchAndSetOrders(),
+        future: _loadedOrders,
         builder: (ctx, dataSnapshot) {
           if (dataSnapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
