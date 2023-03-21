@@ -8,19 +8,16 @@ import './product.dart';
 class Products with ChangeNotifier {
   List<Product> _items = [];
 
-  // var _filterFavorites = false;
+  final String? _authToken;
+  final String? _userId;
+
+  Products(this._authToken, this._userId, this._items);
 
   List<Product> get filterFavorites {
     return _items.where((element) => element.isFavorite).toList();
   }
 
-  // this return forces a return of a copy of items
-  // if the return of this method is _items, then you got any return
-  // whenever _items change internally
   List<Product> get items {
-    // if (_filterFavorites) {
-    //   return _items.where((element) => element.isFavorite).toList();
-    // }
     return [..._items];
   }
 
@@ -28,34 +25,37 @@ class Products with ChangeNotifier {
     return _items.firstWhere((element) => element.id == id);
   }
 
-  // void filterFavorites() {
-  //   _filterFavorites = true;
-  //   notifyListeners();
-  // }
-
-  // void unfilterFavorites() {
-  //   _filterFavorites = false;
-  //   notifyListeners();
-  // }
-
-  Future<void> fetchAndSetProducts() async {
+  Future<void> fetchAndSetProducts([bool filterByUser = false]) async {
     try {
-      // remove .json from url to force errors
-      const url =
-          'https://learn-flutter-aa8f6-default-rtdb.firebaseio.com/products.json'; // .json';
+      const baseApi = 'learn-flutter-aa8f6-default-rtdb.firebaseio.com';
+      final filterString =
+          filterByUser ? '&orderBy="ownerId"&equalTo="$_userId"' : '';
+      final url =
+          'https://$baseApi/products.json?auth=$_authToken$filterString';
       final response = await http.get(Uri.parse(url));
       final decodedResponse =
           json.decode(response.body) as Map<String, dynamic>;
+
+      if (decodedResponse.isEmpty) return;
+
+      final favoriteResponse = await http.get(Uri.parse(
+          'https://$baseApi/userFavorites/$_userId.json?auth=$_authToken'));
+      final encodedFavorite = json.decode(favoriteResponse.body);
       final List<Product> loadedProducts = [];
+
       decodedResponse.forEach((productId, product) {
-        loadedProducts.add(Product(
-          id: productId,
-          title: product['title'],
-          description: product['description'],
-          price: product['price'],
-          imageUrl: product['imageUrl'],
-          isFavorite: product['isFavorite'],
-        ));
+        loadedProducts.add(
+          Product(
+            id: productId,
+            title: product['title'],
+            description: product['description'],
+            price: product['price'],
+            imageUrl: product['imageUrl'],
+            isFavorite: encodedFavorite == null
+                ? false
+                : encodedFavorite[productId] ?? false,
+          ),
+        );
       });
       _items = loadedProducts;
       notifyListeners();
@@ -64,16 +64,11 @@ class Products with ChangeNotifier {
     }
   }
 
-  // this forces _items to be added inside this method
-  // as it forces to add here, notifyListeners can be triggered
-  // in this method a async and await was applied, but the .then and .catchError will be comment
-  // remove async and all awaits in order to use with then/catch and set return to http.post...
   Future<void> addProduct(Product product) async {
-    // remove .json from url to force errors
-    const url =
-        'https://learn-flutter-aa8f6-default-rtdb.firebaseio.com/products.json'; // .json';
-    // return
     try {
+      final url =
+          'https://learn-flutter-aa8f6-default-rtdb.firebaseio.com/products.json?auth=$_authToken';
+
       final response = await http.post(
         Uri.parse(url),
         body: json.encode({
@@ -81,10 +76,9 @@ class Products with ChangeNotifier {
           'description': product.description,
           'price': product.price,
           'imageUrl': product.imageUrl,
-          'isFavorite': product.isFavorite,
+          'ownerId': _userId,
         }),
       );
-      // .then((response) {
       final newProduct = Product(
         id: json.decode(response.body)['name'],
         title: product.title,
@@ -92,12 +86,9 @@ class Products with ChangeNotifier {
         price: product.price,
         imageUrl: product.imageUrl,
       );
-      // _items.insert(0, newProduct); // to add as first item in the list
+
       _items.add(newProduct);
       notifyListeners();
-      // }).catchError((err) {
-      //   throw err;
-      // });
     } catch (err) {
       throw err;
     }
@@ -107,7 +98,7 @@ class Products with ChangeNotifier {
     final productIndex = _items.indexWhere((element) => element.id == id);
     if (productIndex >= 0) {
       final url =
-          'https://learn-flutter-aa8f6-default-rtdb.firebaseio.com/products/$id.json';
+          'https://learn-flutter-aa8f6-default-rtdb.firebaseio.com/products/$id.json?auth=$_authToken';
       await http.patch(Uri.parse(url),
           body: json.encode({
             'title': newProduct.title,
@@ -124,7 +115,7 @@ class Products with ChangeNotifier {
 
   Future<void> deleteProduct(String id) async {
     final url =
-        'https://learn-flutter-aa8f6-default-rtdb.firebaseio.com/products/$id.json';
+        'https://learn-flutter-aa8f6-default-rtdb.firebaseio.com/products/$id.json?auth=$_authToken';
     final index = _items.indexWhere((element) => element.id == id);
     Object? currentProduct = _items[index];
     _items.removeAt(index);
