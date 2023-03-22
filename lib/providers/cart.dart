@@ -14,9 +14,6 @@ class CartItem {
       required this.price});
 }
 
-/**
- * ChangeNotifier can also be imported from widgets.dart
- */
 class Cart with ChangeNotifier {
   Map<String, CartItem> _items = {};
 

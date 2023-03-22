@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
+import '../config/constants.dart';
+
 class Product with ChangeNotifier {
   final String id;
   final String title;
@@ -29,8 +31,7 @@ class Product with ChangeNotifier {
     notifyListeners();
 
     try {
-      final url =
-          'https://learn-flutter-aa8f6-default-rtdb.firebaseio.com/userFavorites/$userId/$id.json?auth=$token';
+      final url = '${Constants.userFavorites}/$userId/$id.json?auth=$token';
 
       final response = await http.put(
         Uri.parse(url),
