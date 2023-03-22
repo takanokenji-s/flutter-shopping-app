@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
+
+import '../config/constants.dart';
 import './cart.dart';
 
 class OrderItem {
@@ -29,8 +31,7 @@ class Orders with ChangeNotifier {
   }
 
   Future<void> fetchAndSetOrders() async {
-    final url =
-        'https://learn-flutter-aa8f6-default-rtdb.firebaseio.com/orders/$userId.json?auth=$authToken';
+    final url = '${Constants.baseApi}/orders/$userId.json?auth=$authToken';
     final response = await http.get(Uri.parse(url));
     final List<OrderItem> orders = [];
     final encodedOrders = json.decode(response.body) as Map<String, dynamic>;
@@ -59,8 +60,7 @@ class Orders with ChangeNotifier {
   }
 
   Future<void> addOrder(List<CartItem> cartProducts, double total) async {
-    final url =
-        'https://learn-flutter-aa8f6-default-rtdb.firebaseio.com/orders/$userId.json?auth=$authToken';
+    final url = '${Constants.baseApi}/orders/$userId.json?auth=$authToken';
     final timestamp = DateTime.now();
     final response = await http.post(Uri.parse(url),
         body: json.encode({
@@ -71,7 +71,7 @@ class Orders with ChangeNotifier {
                     'id': prod.id,
                     'title': prod.title,
                     'quantity': prod.quantity,
-                    'price': prod.price
+                    'price': prod.price,
                   })
               .toList(),
         }));
