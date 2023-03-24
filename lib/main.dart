@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import './helpers/custom_routes.dart';
 import './views/cart_view.dart';
 import './views/product_overview.dart';
 import './views/product_detail.dart';
@@ -29,23 +30,27 @@ class MyApp extends StatelessWidget {
           create: (ctx) => Auth(),
         ),
         ChangeNotifierProxyProvider<Auth, Products>(
-          create: (_) => Products(
-              null, null, []), // faço nem ideia se isso vai funcionar kkkk
-          update: (ctx, auth, previousProducts) {
-            print(auth.token);
-            return Products(auth.token, auth.userId,
-                previousProducts == null ? [] : previousProducts.items);
-          },
+          create: (_) => Products(null, null, []),
+          update: (ctx, auth, previousProducts) => Products(
+            auth.token,
+            auth.userId,
+            previousProducts == null ? [] : previousProducts.items,
+          ),
         ),
         ChangeNotifierProvider(
           create: (ctx) => Cart(),
         ),
         ChangeNotifierProxyProvider<Auth, Orders>(
           update: (ctx, auth, previousOrders) => Orders(
-              auth.token!,
-              auth.userId!,
-              previousOrders!.orders.isNotEmpty ? previousOrders.orders : []),
-          create: (_) => Orders('', '', []),
+            auth.token!,
+            auth.userId!,
+            previousOrders!.orders.isNotEmpty ? previousOrders.orders : [],
+          ),
+          create: (_) => Orders(
+            '',
+            '',
+            [],
+          ),
         ),
       ],
       child: Consumer<Auth>(
@@ -53,6 +58,12 @@ class MyApp extends StatelessWidget {
           title: 'Shopping App to Learn Flutter',
           theme: ThemeData(
             fontFamily: 'Lato',
+            pageTransitionsTheme: PageTransitionsTheme(
+              builders: {
+                TargetPlatform.android: CustomPageTransitionBuilder(),
+                TargetPlatform.iOS: CustomPageTransitionBuilder(),
+              },
+            ),
             colorScheme: ColorScheme.fromSwatch()
                 .copyWith(primary: Colors.purple, secondary: Colors.deepOrange),
           ),
